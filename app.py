@@ -1,4 +1,5 @@
-from server import *
+from server import app
+import endpoint
 
 if __name__ == '__main__':
     app.run(
