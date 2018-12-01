@@ -54,6 +54,17 @@ function restore() {
   mysql -h${DB_HOST} -uroot -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} < ./db/sql/latest_dump.sql
 }
 
+function updateServer() {
+  rsync -avz ../${project_name} root@${server_address}:/root
+  echo "-------------------------------->"
+  echo "update remove server....."
+  cmd="cd ${project_name}/docker;"
+  cmd=${cmd}"docker rm -f ${container_name[0]};"
+  cmd=${cmd}"docker-compose up --build -d ${container_name[0]};"
+  echo ${cmd}
+  ssh root@${server_address} ${cmd}
+}
+
 case "$1" in
   deploy)
     deploy
@@ -79,6 +90,9 @@ case "$1" in
     restore
     ;;
 
+  updateServer)
+    updateServer
+    ;;
   *)
     echo "please choose one {dump | restore}"
     exit 1

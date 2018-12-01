@@ -14,3 +14,6 @@ getRemote:
 
 localtest:
 	@./shell/localtest.sh localtest
+
+updateServer:
+	@./shell/deploy.sh updateServer
