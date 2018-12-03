@@ -1,4 +1,5 @@
-from server import *
+from server import app
+from flask import make_response
 
 @app.route('/register')
 def register():
